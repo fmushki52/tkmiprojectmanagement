@@ -93,7 +93,11 @@ Bucket setup (S3/R2/MinIO): keep it private, create an access key limited to Put
 
 ## Deploying to Vercel + Neon
 1. Create a Neon project with separate branches/databases for development, preview and production. Use the **pooled** connection string as `DATABASE_URL` in each Vercel environment (Production / Preview / Development).
-2. Set env vars in Vercel (Project → Settings → Environment Variables): `DATABASE_URL`, `BETTER_AUTH_SECRET` (`openssl rand -base64 32`), `BETTER_AUTH_URL` and `NEXT_PUBLIC_APP_URL` (the deployment URL), `CRON_SECRET`, and `STORAGE_DRIVER=s3` with the `S3_*` variables from `.env.example`.
+2. Set env vars in the Vercel dashboard (Project → Settings → Environment Variables, tick **Production**). **Vercel does not read `.env`, `.env.local` or `.env.production` files** (they are git-ignored and never uploaded), so a missing variable in the dashboard is the usual cause of a failing deployment. Variables only apply to deployments created *after* you add them: redeploy once saved.
+   - Required: `DATABASE_URL` (Neon pooled URL), `BETTER_AUTH_SECRET` (`openssl rand -base64 32`; without it every sign-up/sign-in returns HTTP 500), `CRON_SECRET`.
+   - Recommended: `BETTER_AUTH_URL` and `NEXT_PUBLIC_APP_URL` set to your public URL (e.g. your custom domain). If `BETTER_AUTH_URL` is unset the app falls back to Vercel's `VERCEL_PROJECT_PRODUCTION_URL` / `VERCEL_URL`, and those deployment URLs are trusted automatically; any other origin is rejected (HTTP 403 "Invalid origin").
+   - Attachments: `STORAGE_DRIVER=s3` with the `S3_*` variables from `.env.example`.
+   - If something fails, open Vercel → Deployments → the deployment → Logs: the real error (for example "You are using the default secret") is printed there.
 3. Run migrations explicitly against each database before/after deploying: `DATABASE_URL=<that db> npm run db:migrate`. Migrations are never run on app start or build.
 4. Deploy. `vercel.json` registers the daily deadline cron. PDF export uses pdf-lib (pure JS), so it runs in the Node.js runtime without native dependencies.
 

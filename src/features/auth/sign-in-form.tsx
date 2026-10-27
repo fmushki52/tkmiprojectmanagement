@@ -32,7 +32,11 @@ export function SignInForm({ next }: { next?: string }) {
     const { error } = await authClient.signIn.email({ email: values.email.trim().toLowerCase(), password: values.password });
     setSubmitting(false);
     if (error) {
-      setFormError(error.message ?? "Invalid email or password.");
+      setFormError(
+        error.status >= 500
+          ? "The server could not process this request. If you run this deployment, check its environment variables (DATABASE_URL, BETTER_AUTH_SECRET) and the server logs."
+          : (error.message ?? "Invalid email or password."),
+      );
       toast.error("Could not sign you in");
       return;
     }
