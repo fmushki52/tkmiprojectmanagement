@@ -1,0 +1,169 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-gold: var(--gold);
+  --color-gold-band: var(--gold-band);
+  --color-mint: var(--mint);
+  --animate-fade-in: fade-in 0.25s ease-out;
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* Daerat Toloba palette: deep green chrome, gold band, tan canvas, white cards */
+  --background: hsl(40 48% 74%);
+  --foreground: hsl(160 30% 10%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(160 30% 10%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(160 30% 10%);
+
+  --primary: hsl(151 82% 20%);
+  --primary-foreground: hsl(0 0% 100%);
+  --secondary: hsl(40 35% 93%);
+  --secondary-foreground: hsl(160 30% 14%);
+  --muted: hsl(40 30% 92%);
+  --muted-foreground: hsl(160 8% 36%);
+  --accent: hsl(160 55% 92%);
+  --accent-foreground: hsl(151 82% 18%);
+
+  --destructive: hsl(0 72% 48%);
+  --border: hsl(40 25% 86%);
+  --input: hsl(40 20% 78%);
+  --ring: hsl(167 75% 38%);
+  --radius: 0.875rem;
+
+  /* Brand accents */
+  --gold: hsl(41 62% 56%);
+  --gold-band: hsl(41 61% 61%);
+  --mint: hsl(167 75% 43%);
+
+  /* Green chrome (top bar + sidebar) */
+  --sidebar: hsl(160 100% 15%);
+  --sidebar-foreground: hsl(0 0% 96%);
+  --sidebar-primary: hsl(41 62% 56%);
+  --sidebar-primary-foreground: hsl(160 100% 10%);
+  --sidebar-accent: hsl(160 90% 20%);
+  --sidebar-accent-foreground: hsl(0 0% 100%);
+  --sidebar-border: hsl(160 80% 22%);
+  --sidebar-ring: hsl(167 75% 43%);
+
+  --success: hsl(142 70% 32%);
+  --success-foreground: hsl(0 0% 100%);
+  --warning: hsl(38 92% 50%);
+  --warning-foreground: hsl(0 0% 100%);
+  --info: hsl(200 80% 38%);
+  --info-foreground: hsl(0 0% 100%);
+
+  --chart-1: hsl(151 82% 24%);
+  --chart-2: hsl(167 75% 43%);
+  --chart-3: hsl(41 62% 56%);
+  --chart-4: hsl(200 80% 45%);
+  --chart-5: hsl(0 0% 45%);
+}
+
+.dark {
+  --background: hsl(160 28% 7%);
+  --foreground: hsl(40 25% 94%);
+  --card: hsl(160 24% 11%);
+  --card-foreground: hsl(40 25% 94%);
+  --popover: hsl(160 24% 13%);
+  --popover-foreground: hsl(40 25% 94%);
+  --primary: hsl(160 70% 42%);
+  --primary-foreground: hsl(160 100% 6%);
+  --secondary: hsl(160 18% 18%);
+  --secondary-foreground: hsl(40 25% 94%);
+  --muted: hsl(160 18% 17%);
+  --muted-foreground: hsl(40 12% 66%);
+  --accent: hsl(160 50% 14%);
+  --accent-foreground: hsl(167 70% 60%);
+  --destructive: hsl(0 78% 62%);
+  --border: hsl(160 18% 20%);
+  --input: hsl(160 18% 24%);
+  --ring: hsl(167 75% 50%);
+
+  --gold: hsl(41 62% 56%);
+  --gold-band: hsl(41 38% 24%);
+  --mint: hsl(167 75% 50%);
+
+  --sidebar: hsl(160 70% 9%);
+  --sidebar-foreground: hsl(0 0% 94%);
+  --sidebar-primary: hsl(41 62% 56%);
+  --sidebar-primary-foreground: hsl(160 100% 8%);
+  --sidebar-accent: hsl(160 50% 14%);
+  --sidebar-accent-foreground: hsl(0 0% 100%);
+  --sidebar-border: hsl(160 40% 16%);
+  --sidebar-ring: hsl(167 75% 50%);
+
+  --success: hsl(142 60% 45%);
+  --warning: hsl(38 90% 55%);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  html {
+    @apply font-sans;
+  }
+}
