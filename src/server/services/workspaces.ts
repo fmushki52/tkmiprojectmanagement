@@ -1,21 +1,12 @@
 import { and, asc, eq, isNull, ne, sql } from "drizzle-orm";
 import { type DbOrTx, getDb, schema } from "@/db";
+import { slugify } from "@/lib/slug";
 import { AppError, conflict, notFound, ruleViolation } from "@/lib/errors";
 import { type WorkspaceRole, assertCan } from "@/lib/permissions";
 import type { Ctx } from "../types";
 import { attachmentKeysWhere, collectStorageKeys, removeObjects } from "./storage-cleanup";
 
 const { workspaces, workspaceMembers, user, projects, tasks } = schema;
-
-export function slugify(name: string): string {
-  const base = name
-    .toLowerCase()
-    .normalize("NFKD")
-    .replace(/[^\p{L}\p{N}]+/gu, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 40);
-  return base || "workspace";
-}
 
 export async function createWorkspace(userId: string, name: string) {
   const db = getDb();

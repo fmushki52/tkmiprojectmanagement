@@ -56,6 +56,17 @@ drizzle/            versioned SQL migrations
 - Kanban moves are persisted server-side (`moveTask`), with fractional positions computed from stored column order.
 - Deleting a project cascades; archiving is the reversible alternative. Deleting a milestone keeps its tasks (unassigned).
 
+## First account (there is no default login)
+
+A fresh database has no users. Either open `/sign-up` and register, or bootstrap the first owner from your machine (credentials come from the environment, so nothing secret is committed):
+
+```bash
+ADMIN_EMAIL=you@example.com ADMIN_PASSWORD='choose-a-strong-password' ADMIN_WORKSPACE='My Workspace' \
+DATABASE_URL='<your Neon pooled URL>' npm run db:create-admin
+```
+
+It creates the account, a workspace, and makes the account its owner. It is safe to re-run: if the email already exists it changes nothing and never resets a password. Sign in at `/sign-in` and change the password afterwards. Do not put real credentials in `.env.example`, the code or the repository.
+
 ## User management and roles
 
 `/w/<workspace>/users` (owners only; other roles get a 404, and every service call re-checks `member:manage`):
